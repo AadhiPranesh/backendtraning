@@ -1,0 +1,53 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Build outputs
+build/
+dist/
+out/
+target/
+
+# Gradle
+.gradle/
+**/build/
+!src/**/build/
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.swp
+*.swo
+.project
+.classpath
+.settings/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# OS generated files
+.DS_Store
+Thumbs.db
+*.log
+
+# Test coverage
+coverage/
+*.lcov
+
+# Package manager locks (optional - uncomment if you don't want to track)
+# package-lock.json
+# yarn.lock
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp

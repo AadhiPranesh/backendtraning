@@ -33,6 +33,8 @@ router.post('/add',(req,res)=>{
     res.send(student)
 })
 
+
+
 //DELTE METHOD
 // app.delete('/delete/',(req,res)=>{
 //     console.log('delete method');
@@ -75,6 +77,16 @@ router.put('/replace/:id',(req,res)=>{
 //     res.send("get");
 // })
 // get student method
+
+function checkname(req,res,next){
+    if(true){
+        next();
+    }
+    else{
+        throw new Error("name not found")
+    }
+    next();
+}
 router.get('/student',(req,res)=>{
     res.send(student);
 })
