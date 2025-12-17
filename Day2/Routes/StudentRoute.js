@@ -24,7 +24,6 @@ const StudentSchema = new mongoose.Schema({
 
 })
 const studentModel = mongoose.model("student", StudentSchema)
-
 // post method
 // middleware to parse json body   ( then able to read req.body  , without this it will be undefined .  normal format data kku express.urlencoded use pannanum)
 router.post('/add', async (req, res) => {
@@ -47,21 +46,22 @@ router.post('/add', async (req, res) => {
     }
 })
 
-router.delete('/delete/:id',async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
     try {
         console.log('delete method');
-    const { id } = req.params;
-    const deleted = await studentModel.findByIdAndDelete(id)  
-    res.send(deleted)
+        const { id } = req.params;
+        const deleted = await studentModel.findByIdAndDelete(id)
+        res.json({ message: "student delete", data: deleted.name });
     } catch (error) {
-         
+        res.json({ message: error.message });
     }
 })
 
 
 //put method
 router.put('/replace/:id', (req, res) => {
-    console.log('replace method');
+    try {
+        console.log('replace method');
     const { id } = req.params;
     const { name } = req.body;
     const index = student.findIndex((items) => {
@@ -69,6 +69,9 @@ router.put('/replace/:id', (req, res) => {
     })
     student[index] = { name }
     res.send(index)
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 
@@ -88,7 +91,13 @@ function checkname(req, res, next) {
     }
     next();
 }
-router.get('/student', (req, res) => {
-    res.send(student);
+router.get('/student', async(req, res) => {
+   try {
+    const student = await studentModel.find()
+    
+     res.send(student);
+   } catch (error) {
+    console.log(error)
+   }
 })
 module.exports = router;
