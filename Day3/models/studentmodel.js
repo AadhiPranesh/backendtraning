@@ -1,4 +1,4 @@
-const mongoose=require('mongoose')
+const mongoose = require('mongoose')
 const StudentSchema = new mongoose.Schema({
     name: {
 
@@ -7,13 +7,13 @@ const StudentSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        unique:true,
+        unique: true,
         required: true
     },
-    password:{
-        type:String,
-        required:true,
-        
+    password: {
+        type: String,
+        required: true,
+
     },
     dept: {
         type: String,
@@ -22,7 +22,12 @@ const StudentSchema = new mongoose.Schema({
     age: {
         type: Number,
     },
+    role: {
+        type: String,
+        enum: ['Student', 'Admin'],
+        required:true
+    }
 
 })
 const studentModel = mongoose.model("student", StudentSchema)
-module.exports=studentModel;
+module.exports = studentModel;

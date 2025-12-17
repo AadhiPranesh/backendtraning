@@ -5,7 +5,7 @@ const app=express();
 async function connectDB(){
 
 
-await mongoose.connect("mongodb://localhost:27017/BackendTech")
+await mongoose.connect("mongodb+srv://Backend:aadhi1234567890@cluster0.rzbfpqp.mongodb.net/BackendTech")
 .then(()=>{
     console.log("bakend  connected")
 })

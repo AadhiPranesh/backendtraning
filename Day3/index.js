@@ -6,7 +6,7 @@ const app=express();
 app.use(express.json())
 const studentRoute= require('./Routes/StudentRoute')
 const Course=require('./Routes/CourseRouter')
-
+const Admin=require('./Routes/AdminRouter')
 // mongoose.connect("mongodb://localhost:27017/BackendTech")
 // .then(()=>{
 // console.log("bakend  connected")
@@ -14,7 +14,8 @@ const Course=require('./Routes/CourseRouter')
 //     console.log(error)
 // })
 app.use('/course',Course)
-app.use('/student',studentRoute)
+app.use('/',studentRoute)
+app.use('/',Admin)
 // app.listen(3000,()=>{
 //     console.log("port nmuber 3000 is connected")
 // })
