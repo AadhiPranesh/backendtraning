@@ -5,31 +5,31 @@ router.use(express.json());
 const bcrypt = require('bcrypt')
 const validator = require('validator')
 const studentModel = require("../models/studentmodel")
-
+const auth=require("../Middleware/auth")
 const jwt = require("jsonwebtoken")
 
-const auth = async (req, res, next) => {
-    try {
-        const { token } = req.cookies;
+// const auth = async (req, res, next) => {
+//     try {
+//         const { token } = req.cookies;
 
-        if (!token) {
-            return res.json("no token found");
-        }
-        const decoded = await jwt.verify(token, "BACKEND1812")
-        if (!decoded) {
-            return res.json("no student find")
-        }
-        const { userId } = decoded
-        const userdata = await studentModel.findById(userId)
-        console.log(userdata)
-        if (!userdata) {
-            return res.json("no user found ")
-        }
-        next();
-    } catch (error) {
-        return  res.json("no user foun")
-    }
-}
+//         if (!token) {
+//             return res.json("no token found");
+//         }
+//         const decoded = await jwt.verify(token, "BACKEND1812")
+//         if (!decoded) {
+//             return res.json("no student find")
+//         }
+//         const { userId } = decoded
+//         const userdata = await studentModel.findById(userId)
+//         console.log(userdata)
+//         if (!userdata) {
+//             return res.json("no user found ")
+//         }
+//         next();
+//     } catch (error) {
+//         return  res.json("no user foun")
+//     }
+// }
 
 
 
@@ -86,7 +86,11 @@ router.post("/student/login", async (req, res) => {
 })
 router.get("/student/:id",auth, async (req, res) => {
     try {
+        const loggeduster=req.user;
         const { id } = req.params;
+        if(loggeduster!=id){
+            return res.json("your id is Wrong")
+        }
         const student = await studentModel.findById(id);
         if (!student) {
             return res.json({ message: "no student found" })

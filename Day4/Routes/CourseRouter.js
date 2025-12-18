@@ -1,6 +1,7 @@
 const express = require('express');
 const { default: mongoose, Types } = require('mongoose');
 const router = express.Router();
+const auth=require("../Middleware/auth")
 router.use(express.json())
 // const Course = [{
 //     id: 1,
@@ -20,7 +21,7 @@ const Course = new mongoose.Schema({
     }
 })
 const CourseModel=mongoose.model("course",Course)
-router.get("/course", async (req, res) => {
+router.get("/course",auth, async (req, res) => {
     try {
         console.log("get method in course");
         res.send(await CourseModel.find());
@@ -29,7 +30,7 @@ router.get("/course", async (req, res) => {
     }
 });
     //post
-    router.post('/add', async (req, res) => {
+    router.post('/course/add', auth,async (req, res) => {
         console.log('post method');
         try {
             const { name } = req.body; //  body destructuring

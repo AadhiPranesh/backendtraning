@@ -14,7 +14,7 @@ const Admin=require('./Routes/AdminRouter')
 //     console.log(error)
 // })
 app.use(cookieParser());
-app.use('/course',Course);
+app.use('/',Course);
 app.use('/',studentRoute);
 app.use('/',Admin);
 
