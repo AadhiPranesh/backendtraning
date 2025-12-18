@@ -7,9 +7,9 @@ app.use(express.json())
 const user=require('./Routes/UserRouter');
 const bookRouter = require('./Routes/BooksRouter');
 app.use('/book',bookRouter)
-app.use('/user',user)
+app.use('/',user)
 connectDB().then(()=>{
-    app.listen(5000,()=>{
-        console.log("server is running on port 5000");
+    app.listen(4000,()=>{
+        console.log("server is running on port 4000");
     })
 })

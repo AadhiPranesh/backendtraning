@@ -1,25 +1,8 @@
 const express = require('express');
-const { default: mongoose } = require('mongoose');
+const mongoose= require('mongoose');
 const router = express.Router();
-// const Book=[{
-//     id:1,
-//     name:"c++",
-//     author:"ssap",
-//     isavaliable:"yes"
-// }]
-const Book = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  author: {
-    type: String,
-    required: true
-  }
-})
-const BookModel = mongoose.model("book", Book)
 
-
+const BookModel = require("../models/BookModel")
 
 router.post('/add', async(req, res) => {
   try {
@@ -32,7 +15,7 @@ router.post('/add', async(req, res) => {
     await newBook.save()
     res.send(newBook)
   } catch (error) {
-    console.log(error)
+    return res.json(error)
   }
 })
 
@@ -44,7 +27,7 @@ router.get("/get", async (req, res) => {
     console.log("get method in course");
     res.send(await BookModel.find());
   } catch (error) {
-    console.log(error)
+    res.json({message:"error"})
   }
 });
 module.exports = router;
