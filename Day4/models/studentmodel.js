@@ -26,7 +26,11 @@ const StudentSchema = new mongoose.Schema({
         type: String,
         enum: ['Student', 'Admin'],
         required:true
-    }
+    },
+    AssignedCourses:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Course"
+    }]
 
 })
 const studentModel = mongoose.model("student", StudentSchema)

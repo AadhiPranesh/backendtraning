@@ -9,7 +9,7 @@ const auth=require("../Middleware/auth")
 const jwt=require("jsonwebtoken")
 
 
-router.post('/signup',async(req,res)=>{
+router.post('/admin/signup',async(req,res)=>{
     try{
         const {name,email,password,dept,age,role}=req.body;
         if(!validator.isEmail(email)){
@@ -34,11 +34,11 @@ router.post('/signup',async(req,res)=>{
     }
 })
 
-router.post('/login',async(req,res)=>{
+router.post('/admin/login',async(req,res)=>{
     try{
         const {email,password}=req.body;
         const student =await stdmodel.findOne({email:email});
-        if(student.role!='admin'){
+        if(student.role!='Admin'){
             return res.json({message:"accessss denied"});
         }
         const verifypassword=await bcrypt.compare(password, student.password);
@@ -125,13 +125,19 @@ router.delete('/deleteadmin/:id',async(req,res)=>{
    }
 });
 
-router.patch('/assigncourse/:id',auth,async(req,res)=>{
+router.patch('/assigncourse/:id',async(req,res)=>{
     try{
         const {id}=req.params;
+        console.log(req.body)
         const {courseId}=req.body;
-        
+        const Student=await stdmodel.findById(id);  
+        console.log(Student)
+        if(!Student){
+            return res.json({message:"no student found"});
+        }
         // Fetch the complete course details
         const course=await courseModel.findById(courseId);
+        console.log(course)
         if(!course){
             return res.json({message:"course not found"});
         }
